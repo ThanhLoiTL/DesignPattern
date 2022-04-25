@@ -3,9 +3,12 @@ import java.util.Scanner;
 public class StudentManager {
     static Scanner scanner = new Scanner(System.in);
     StudentFileManager studentFileManager;
+    IContainer studentContainer;
+    IIterator studentIterator;
 
     public StudentManager() {
         studentFileManager = StudentFileManager.getInstance();
+        studentContainer = new StudentContainer();
     }
 
     public int generateID() {
@@ -29,8 +32,10 @@ public class StudentManager {
     }
 
     public void showStudent() {
-        for (Student s: studentFileManager.read()) {
-            s.display();
+        studentIterator = studentContainer.createIterator();
+        while (studentIterator.hasNext()){
+            Student student = (Student) studentIterator.next();
+            student.display();
         }
     }
 
@@ -48,20 +53,29 @@ public class StudentManager {
     }
 
     public void clone(Student student) {
-        Student s = (Student) student.clone();
-        s.setId(generateID());
-        saveStudent(s);
+        if(student != null){
+            Student s = (Student) student.clone();
+            s.setId(generateID());
+            saveStudent(s);
+        }
     }
 
     public Student findOne() {
         System.out.print("Input ID student: ");
         int id = Integer.parseInt(scanner.nextLine().trim());
-        for (Student s: studentFileManager.read()) {
-            if(s.getId() == id) {
-                return s;
+        studentIterator = studentContainer.createIterator();
+        while (studentIterator.hasNext()){
+            Student student = (Student) studentIterator.next();
+            if(student.getId() == id) {
+                return student;
             }
         }
-        System.out.print("Not found ID student: ");
+//        for (Student s: studentFileManager.read()) {
+//            if(s.getId() == id) {
+//                return s;
+//            }
+//        }
+        System.out.print("Not found student ID!\n");
         return null;
     }
 }

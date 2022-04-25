@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class Student implements Serializable, IStudent, Prototype {
+public class Student implements Serializable, IStudent, IPrototype {
     private int id;
     private String name;
     private int age;
@@ -72,20 +72,6 @@ public class Student implements Serializable, IStudent, Prototype {
         this.gpa = gpa;
     }
 
-    public void input(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Input name: ");
-        name = scanner.nextLine();
-        System.out.print("Input age: ");
-        age = Integer.parseInt(scanner.nextLine());
-        System.out.print("Input address: ");
-        address = scanner.nextLine();
-        System.out.print("Input email: ");
-        email = scanner.nextLine();
-        System.out.print("Input gpa: ");
-        gpa = Float.parseFloat(scanner.nextLine());
-    }
-
     @Override
     public String toString() {
         return "Student: " +
@@ -101,7 +87,7 @@ public class Student implements Serializable, IStudent, Prototype {
     }
 
     @Override
-    public Prototype clone() {
+    public IPrototype clone() {
         return new Student(id, name, age, address, email, gpa);
     }
 }
