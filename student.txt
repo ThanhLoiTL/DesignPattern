@@ -1,0 +1,5 @@
+S1,Thanh Lợi,20,nam,QN,thanhloi@gmail.com,123,Toan
+S2,Trọng Huy,20,nam,QN,tronghuy@gmail.com,123,May
+S3,Trọng Tín,20,Nam,QN,trongtin@gmail.com,123,Dien
+S4,Minh Nhật,20,nam,QN,minhnhat@gmail.com,123,Toan
+S5,Trọng Tín,20,Nam,QN,trongtin@gmail.com,123,Dien
