@@ -39,14 +39,14 @@ public class CourseManager {
     public boolean addStudentToCourse() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        var course = findCourseById(courseId);
+        Course course = findCourseById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
             return false;
         }
         System.out.print("Nhập mã sinh viên: ");
-        var studentId = scanner.nextLine();
-        var student = studentManager.findStudentById(studentId);
+        String studentId = scanner.nextLine();
+        Student student = studentManager.findStudentById(studentId);
         if (student != null) {
             course.registerObserver(student);
             return true;
@@ -57,7 +57,7 @@ public class CourseManager {
     }
 
     private Course findCourseById(String courseId) {
-        for (var co : courses) {
+        for (Course co : courses) {
             if (co.getId().compareTo(courseId) == 0)
                 return co;
         }
@@ -73,7 +73,7 @@ public class CourseManager {
         System.out.println("==> Danh sách các lớp học <==");
         System.out.printf("%-12s%-25s%-15s%-15s\n",
                 "Mã lớp", "Tên lớp", "Phòng học", "Môn học");
-        for (var co : courses) {
+        for (Course co : courses) {
             showCourse(co);
         }
     }
@@ -81,7 +81,7 @@ public class CourseManager {
     public void showStudentInCourse() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        var course = findCourseById(courseId);
+        Course course = findCourseById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
         }else {
@@ -98,7 +98,7 @@ public class CourseManager {
     public void updateCourse() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        var course = findCourseById(courseId);
+        Course course = findCourseById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
         }else {
@@ -129,13 +129,13 @@ public class CourseManager {
     public void deleteStudentFromCourse() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        var course = findCourseById(courseId);
+        Course course = findCourseById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
         }else {
             System.out.print("Nhập mã sinh viên cần xóa: ");
-            var studentId = scanner.nextLine();
-            var student = findStudentInCourse(course, studentId);
+            String studentId = scanner.nextLine();
+            Student student = findStudentInCourse(course, studentId);
             if (student != null) {
                 deleteStudentInCourse(course, studentId);
                 System.out.println("Xóa thành công!");

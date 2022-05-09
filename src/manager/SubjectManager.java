@@ -28,7 +28,7 @@ public class SubjectManager {
     }
 
     public Subject findSubjectById(String subjectId) {
-        for (var sub : subjects) {
+        for (Subject sub : subjects) {
             if (sub.getId().compareTo(subjectId) == 0)
                 return sub;
         }
@@ -45,7 +45,7 @@ public class SubjectManager {
         System.out.println("Danh sách môn học");
         System.out.printf("%-12s%-25s%-12s%-12s\n",
                 "Mã môn", "Tên môn", "Số tín", "Số tiết");
-        for (var sub : subjects) {
+        for (Subject sub : subjects) {
             showSubject(sub);
         }
     }
