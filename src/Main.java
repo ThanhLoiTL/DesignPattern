@@ -15,7 +15,6 @@ public class Main {
         StudentManager studentManager = new StudentManager();
         CourseManager courseManager = new CourseManager();
         SubjectManager subjectManager = new SubjectManager();
-        subjectManager.addData();
         courseManager.addData();
         // show menu
         showMenu();
@@ -30,20 +29,26 @@ public class Main {
                         switch (choose)
                         {
                             case 1:
-                                studentManager.addNewStudent();
+                                studentManager.add();
                                 break;
                             case 2:
-                                studentManager.showStudents();
+                                studentManager.showAll();
                                 break;
                             case 3:
                                 System.out.print("Nhập mã sinh viên: ");
                                 String id = scanner.nextLine().trim();
-                                Student student = studentManager.findStudentById(id);
+                                Student student = studentManager.findById(id);
                                 if(student != null){
                                     studentManager.clone(student);
                                 }else{
                                     System.out.print("Không tìm thấy sinh viên!\n");
                                 }
+                                break;
+                            case 4:
+                                studentManager.delete();
+                                break;
+                            case 5:
+                                studentManager.update();
                                 break;
                             case 0:
                                 System.out.println("Exited!\n");
@@ -62,10 +67,10 @@ public class Main {
                         switch (choose)
                         {
                             case 1:
-                                courseManager.addNewCourse();
+                                courseManager.add();
                                 break;
                             case 2:
-                                courseManager.showCourses();
+                                courseManager.showAll();
                                 break;
                             case 3:
                                 courseManager.showStudentInCourse();
@@ -77,7 +82,7 @@ public class Main {
                                 courseManager.deleteStudentFromCourse();
                                 break;
                             case 6:
-                                courseManager.updateCourse();
+                                courseManager.update();
                                 break;
                             case 0:
                                 System.out.println("Exited!\n");
@@ -96,10 +101,13 @@ public class Main {
                         switch (choose)
                         {
                             case 1:
-                                subjectManager.addNewSubject();
+                                subjectManager.add();
                                 break;
                             case 2:
-                                subjectManager.showSubjects();
+                                subjectManager.delete();
+                                break;
+                            case 3:
+                                subjectManager.showAll();
                                 break;
                             case 0:
                                 System.out.println("Exited!\n");

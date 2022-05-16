@@ -14,13 +14,11 @@ public class Student implements Serializable, IPrototype, IObserver {
     private String address;
     private String email;
     private String phoneNumber;
-    private String className;
 
     public Student() {
     }
 
-    public Student(String id, String name, int age, String gender, String address, String email, String phoneNumber,
-            String className) {
+    public Student(String id, String name, int age, String gender, String address, String email, String phoneNumber) {
         this.setId(id);
         this.name = name;
         this.age = age;
@@ -28,12 +26,11 @@ public class Student implements Serializable, IPrototype, IObserver {
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.className = className;
     }
 
     @Override
     public IPrototype clone() {
-        return new Student(null, name, age, gender, address, email, phoneNumber, className);
+        return new Student(null, name, age, gender, address, email, phoneNumber);
     }
 
     @Override
@@ -63,14 +60,6 @@ public class Student implements Serializable, IPrototype, IObserver {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     public void setId(String id) {
@@ -119,8 +108,7 @@ public class Student implements Serializable, IPrototype, IObserver {
     }
 
     public String line() {
-        return id + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + phoneNumber + ","
-                + className + "\n";
+        return id + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + phoneNumber + "\n";
     }
 
     public void parse(String line) {
@@ -133,7 +121,6 @@ public class Student implements Serializable, IPrototype, IObserver {
             address = params[4];
             email = params[5];
             phoneNumber = params[6];
-            className = params[7];
         } catch (ArrayIndexOutOfBoundsException e) {
         } finally {
         }

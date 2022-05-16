@@ -13,6 +13,10 @@ public class Subject {
         this.numOfLesson = numOfLesson;
     }
 
+    public Subject() {
+
+    }
+
     public String getId() {
         return id;
     }
@@ -43,5 +47,21 @@ public class Subject {
 
     public void setNumOfLesson(int numOfLesson) {
         this.numOfLesson = numOfLesson;
+    }
+
+    public String line() {
+        return id + "," + name + "," + credit + "," + numOfLesson +"\n";
+    }
+
+    public void parse(String line) {
+        String[] params = line.split(",");
+        try {
+            id = params[0];
+            name = params[1];
+            credit = Integer.parseInt(params[2]);
+            numOfLesson = Integer.parseInt(params[3]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+        } finally {
+        }
     }
 }

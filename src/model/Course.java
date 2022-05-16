@@ -12,7 +12,7 @@ public class Course implements Serializable, ISubject {
     private String name;
     private String classRoom;
     private Subject subject;
-    private List<TranscripOfStudent> transcriptOfStudents;
+    private List<TranscriptOfStudent> transcriptOfStudents;
     private String message;
 
     public Course() {
@@ -95,18 +95,18 @@ public class Course implements Serializable, ISubject {
     }
 
     public void addStudentToCourse(Student student) {
-        transcriptOfStudents.add(new TranscripOfStudent(student, null));
+        transcriptOfStudents.add(new TranscriptOfStudent(student, null));
     }
 
-    public List<TranscripOfStudent> getTranscriptOfStudents() {
+    public List<TranscriptOfStudent> getTranscriptOfStudents() {
         return transcriptOfStudents;
     }
 
-    public class TranscripOfStudent {
+    public class TranscriptOfStudent {
         private Student student;
         private Transcript transcript;
 
-        public TranscripOfStudent(Student student, Transcript transcript) {
+        public TranscriptOfStudent(Student student, Transcript transcript) {
             this.student = student;
             this.transcript = transcript;
         }

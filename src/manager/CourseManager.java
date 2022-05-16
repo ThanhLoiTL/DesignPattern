@@ -3,31 +3,32 @@ package manager;
 import model.Course;
 import model.Student;
 import model.Subject;
+import util.CheckValid;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CourseManager {
-    private static Scanner scanner = new Scanner(System.in);
-    private static List<Course> courses = new ArrayList<>();
-    private static SubjectManager subjectManager = new SubjectManager();
-    private static StudentManager studentManager = new StudentManager();
+public class CourseManager implements IManager<Course>{
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final List<Course> courses = new ArrayList<>();
+    private static final SubjectManager subjectManager = new SubjectManager();
+    private static final IManager<Student> studentManager = new StudentManager();
 
     public CourseManager() {
     }
-
-    public void addNewCourse() {
+    @Override
+    public void add() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nNhập mã lớp học: ");
-        String id = scanner.nextLine();
+        String id = CheckValid.checkString(scanner);
         System.out.print("Nhập tên lớp học: ");
-        String name = scanner.nextLine();
+        String name = CheckValid.checkString(scanner);
         System.out.print("Nhập phòng học: ");
-        String classRoom = scanner.nextLine();
+        String classRoom = CheckValid.checkString(scanner);
         System.out.print("Nhập mã môn học: ");
-        String subjectId = scanner.nextLine();
-        Subject subject = subjectManager.findSubjectById(subjectId);
+        String subjectId = CheckValid.checkString(scanner);
+        Subject subject = subjectManager.findById(subjectId);
         if (subject == null) {
             System.out.println("Môn học có mã " + subjectId + " không tồn tại!");
         } else {
@@ -39,14 +40,14 @@ public class CourseManager {
     public boolean addStudentToCourse() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        Course course = findCourseById(courseId);
+        Course course = findById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
             return false;
         }
         System.out.print("Nhập mã sinh viên: ");
         String studentId = scanner.nextLine();
-        Student student = studentManager.findStudentById(studentId);
+        Student student = (Student) studentManager.findById(studentId);
         if (student != null) {
             course.registerObserver(student);
             return true;
@@ -55,33 +56,33 @@ public class CourseManager {
         }
         return false;
     }
-
-    private Course findCourseById(String courseId) {
+    @Override
+    public Course findById(String courseId) {
         for (Course co : courses) {
             if (co.getId().compareTo(courseId) == 0)
                 return co;
         }
         return null;
     }
-
-    private void showCourse(Course course) {
+    @Override
+    public void showOne(Course course) {
         System.out.printf("%-12s%-25s%-15s%-15s\n",
                 course.getId(), course.getName(), course.getClassRoom(), course.getSubject().getName());
     }
-
-    public void showCourses() {
+    @Override
+    public void showAll() {
         System.out.println("==> Danh sách các lớp học <==");
         System.out.printf("%-12s%-25s%-15s%-15s\n",
                 "Mã lớp", "Tên lớp", "Phòng học", "Môn học");
         for (Course co : courses) {
-            showCourse(co);
+            showOne(co);
         }
     }
 
     public void showStudentInCourse() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        Course course = findCourseById(courseId);
+        Course course = findById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
         }else {
@@ -90,15 +91,15 @@ public class CourseManager {
                     "SĐT", "Tên lớp");
             for(int i=0;i<course.getTranscriptOfStudents().size();i++){
                 Student student = course.getTranscriptOfStudents().get(i).getStudent();
-                studentManager.showStudent(student);
+                studentManager.showOne(student);
             }
         }
     }
-
-    public void updateCourse() {
+    @Override
+    public void update() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        Course course = findCourseById(courseId);
+        Course course = findById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
         }else {
@@ -107,6 +108,11 @@ public class CourseManager {
             course.setClassRoom(classRoom);
             System.out.print("Cập nhật thành công! ");
         }
+    }
+
+    @Override
+    public void delete() {
+
     }
 
     public Student findStudentInCourse(Course course ,String studentID) {
@@ -129,7 +135,7 @@ public class CourseManager {
     public void deleteStudentFromCourse() {
         System.out.print("Nhập mã lớp học: ");
         String courseId = scanner.nextLine();
-        Course course = findCourseById(courseId);
+        Course course = findById(courseId);
         if (course == null) {
             System.out.println("Mã lớp không tồn tại!");
         }else {

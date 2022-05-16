@@ -2,42 +2,44 @@ package singleton;
 
 import constant.SystemConstant;
 import model.Student;
+import model.Subject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDatabase implements IDatabase<Student> {
-    private List<Student> studentList;
-    private static String fileName = SystemConstant.FILE_STUDENT;
+public class SubjectDatabase implements IDatabase<Subject>{
+    private List<Subject> subjectList;
+    private static String fileName = SystemConstant.FILE_SUBJECT;
 
-    private static StudentDatabase instance;
+    private static SubjectDatabase instance;
 
-    private StudentDatabase() {
-        studentList = new ArrayList<>();
+    private SubjectDatabase() {
+        subjectList = new ArrayList<>();
         readData();
     }
 
-    public static StudentDatabase getInstance() {
+    public static SubjectDatabase getInstance() {
         if (instance == null) {
-            synchronized (StudentDatabase.class) {
+            synchronized (SubjectDatabase.class) {
                 if (instance == null) {
-                    instance = new StudentDatabase();
+                    instance = new SubjectDatabase();
                 }
             }
         }
         return instance;
     }
 
-    public void writeData(Student student) {
+    @Override
+    public void writeData(Subject subject) {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(fileName);
-            if(student != null){
-                studentList.add(student);
+            if(subject != null){
+                subjectList.add(subject);
             }
-            for (Student s : studentList) {
+            for (Subject s : subjectList) {
                 String line = s.line();
                 byte[] bytes = line.getBytes(StandardCharsets.UTF_8);
                 fos.write(bytes);
@@ -49,6 +51,7 @@ public class StudentDatabase implements IDatabase<Student> {
         }
     }
 
+    @Override
     public void readData() {
         FileInputStream fis = null;
         InputStreamReader reader = null;
@@ -62,9 +65,9 @@ public class StudentDatabase implements IDatabase<Student> {
                 if (line.isEmpty()) {
                     continue;
                 }
-                Student student = new Student();
-                student.parse(line);
-                studentList.add(student);
+                Subject subject = new Subject();
+                subject.parse(line);
+                subjectList.add(subject);
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
@@ -74,8 +77,9 @@ public class StudentDatabase implements IDatabase<Student> {
         }
     }
 
-    public List<Student> getData() {
-        return studentList;
+    @Override
+    public List<Subject> getData() {
+        return subjectList;
     }
 
     private void closeStream(InputStream is) {
