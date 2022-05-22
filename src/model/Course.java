@@ -1,7 +1,7 @@
 package model;
 
-import observer.IObserver;
-import observer.ISubject;
+import design_pattern.observer.IObserver;
+import design_pattern.observer.ISubject;
 
 import java.io.Serializable;
 import java.util.ArrayList;

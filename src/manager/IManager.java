@@ -7,4 +7,5 @@ public interface IManager<T> {
     void showAll();
     void showOne(T t);
     T findById(String id);
+    void menu();
 }

@@ -1,2 +1,0 @@
-S1,Thanh Lợi,20,nam,QN,thanhloi@123,123
-S2,Trọng Huy,20,nam,QN,Huy@123,123

@@ -30,4 +30,19 @@ public class CheckValid {
         }while (number == -1);
         return number;
     }
+    public static float checkFloat(Scanner scanner)
+    {
+        float number = -1;
+        do{
+            try
+            {
+                number = Float.parseFloat(scanner.nextLine().trim());
+            }
+            catch (Exception ex)
+            {
+                System.out.print("Nhập sai! Vui lòng nhập lại: ");
+            }
+        }while (number == -1);
+        return number;
+    }
 }

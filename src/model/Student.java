@@ -1,36 +1,26 @@
 package model;
 
-import observer.IObserver;
-import prototype.IPrototype;
-
+import design_pattern.observer.IObserver;
+import design_pattern.prototype.IPrototype;
 import java.io.Serializable;
 
-public class Student implements Serializable, IPrototype, IObserver {
+public class Student extends Person implements Serializable, IPrototype, IObserver {
     private static int nextId = 0;
-    private String id;
-    private String name;
-    private int age;
-    private String gender;
-    private String address;
-    private String email;
-    private String phoneNumber;
+    private String major;
 
-    public Student() {
+    public Student(String id, String name, int age, String gender, String address, String email, String phoneNumber, String major) {
+        super(name, age, gender, address, email, phoneNumber);
+        super.setId(this.setIdStudent(id));
+        this.major = major;
     }
 
-    public Student(String id, String name, int age, String gender, String address, String email, String phoneNumber) {
-        this.setId(id);
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public Student() {
+        super();
     }
 
     @Override
     public IPrototype clone() {
-        return new Student(null, name, age, gender, address, email, phoneNumber);
+        return new Student(null, this.getName(), this.getAge(), this.getGender(), this.getAddress(), this.getEmail(), this.getPhoneNumber(), major);
     }
 
     @Override
@@ -38,91 +28,46 @@ public class Student implements Serializable, IPrototype, IObserver {
         System.out.println("Sinh viên " + getName() + " nhận được thông báo: "+ message);
     }
 
-    public static int getNextId() {
-        return nextId;
+    public String setIdStudent(String id) {
+        if (id == null) { // nếu id rỗng chứng tỏ đối tượng cần được tạo mới.
+            String s = "S" + nextId;
+            nextId++;
+            super.setId(s);
+            return s;
+        } else {
+            return id;
+        }
     }
 
     public static void setNextId(int nextId) {
         Student.nextId = nextId;
     }
 
-    public String getGender() {
-        return gender;
+    public String getMajor() {
+        return major;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setMajor(String major) {
+        this.major = major;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setId(String id) {
-        if (id == null) { // nếu id rỗng chứng tỏ đối tượng cần được tạo mới.
-            this.id = "S" + nextId;
-            nextId++;
-        } else {
-            this.id = id;
-        }
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @Override
     public String line() {
-        return id + "," + name + "," + age + "," + gender + "," + address + "," + email + "," + phoneNumber + "\n";
+        return this.getId() + "," + this.getName() + "," + this.getAge() + "," + this.getGender() + "," + this.getAddress() + "," + this.getEmail() + "," + this.getPhoneNumber() + "," + this.getMajor() +"\n";
     }
-
+    @Override
     public void parse(String line) {
         String[] params = line.split(",");
         try {
-            id = params[0];
-            name = params[1];
-            age = Integer.parseInt(params[2]);
-            gender = params[3];
-            address = params[4];
-            email = params[5];
-            phoneNumber = params[6];
-        } catch (ArrayIndexOutOfBoundsException e) {
-        } finally {
+            this.setId(params[0]);
+            this.setName(params[1]);
+            this.setAge(Integer.parseInt(params[2]));
+            this.setGender(params[3]);
+            this.setAddress(params[4]);
+            this.setEmail(params[5]);
+            this.setPhoneNumber(params[6]);
+            this.setMajor(params[7]);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
     }
 }
