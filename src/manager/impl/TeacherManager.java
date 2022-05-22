@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TeacherManager implements IManager<Teacher> {
-    private static final Scanner scanner = new Scanner(System.in);
     private final IDatabase<Person> teacherFileManager;
     private final IContainer personContainer;
     private IIterator<Person> personIterator;

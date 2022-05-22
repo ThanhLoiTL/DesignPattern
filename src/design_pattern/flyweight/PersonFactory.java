@@ -14,9 +14,14 @@ public class PersonFactory {
             person = persons.get(personType);
         }else {
             switch (personType) {
-                case STUDENT -> person = new Student();
-                case TEACHER -> person = new Teacher();
-                default -> System.out.println("Unreachable code!");
+                case STUDENT:
+                    person = new Student();
+                    break;
+                case TEACHER:
+                    person = new Teacher();
+                    break;
+                default:
+                    System.out.println("Unreachable code!");
             }
             persons.put(personType, person);
         }
