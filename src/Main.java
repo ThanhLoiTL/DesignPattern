@@ -57,10 +57,10 @@ public class Main {
                                 studentManager.update();
                                 break;
                             case 6:
-                                studentManager.findStudent("AND");
+                                studentManager.searchStudent("AND");
                                 break;
                             case 7:
-                                studentManager.findStudent("OR");
+                                studentManager.searchStudent("OR");
                                 break;
                             case 0:
                                 System.out.println("Exited!\n");

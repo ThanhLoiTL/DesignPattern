@@ -128,7 +128,7 @@ public class StudentManager implements IManager<Student> {
         return null;
     }
 
-    public void findStudent(String type) {
+    public void searchStudent(String type) {
         System.out.println("\nNhập một trong các thuộc tính để tìm sinh viên: VD: id:?, name:?, age: ?, gender: ?, email: ?, phone:?");
         String contextString = CheckValid.checkString(scanner);
         int dem = 0;
