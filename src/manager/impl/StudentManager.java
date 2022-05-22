@@ -2,6 +2,8 @@ package manager.impl;
 
 import design_pattern.flyweight.PersonFactory;
 import design_pattern.flyweight.PersonType;
+import design_pattern.interpreter.Expression;
+import design_pattern.interpreter.ExpressionParser;
 import design_pattern.iterator.IContainer;
 import design_pattern.iterator.IIterator;
 import design_pattern.iterator.PersonContainer;
@@ -16,6 +18,7 @@ import design_pattern.templateMethod.UpdateStudent;
 import util.CheckValid;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class StudentManager implements IManager<Student> {
@@ -85,9 +88,7 @@ public class StudentManager implements IManager<Student> {
     public void showAll() {
         personIterator = personContainer.createIterator(studentFileManager.getData());
         int count = 0;
-        System.out.printf("%-5s%-20s%-10s%-15s%-20s%-25s%-15s%-15s\n",
-                "ID", "Họ tên", "Tuổi", "Giới tính", "Địa chỉ", "email",
-                "SĐT", "Chuyên ngành");
+        printTitleInfo();
         while (personIterator.hasNext()) {
             count++;
             Student student = (Student) personIterator.next();
@@ -96,6 +97,11 @@ public class StudentManager implements IManager<Student> {
         if (count == 0) {
             System.out.println("No data");
         }
+    }
+    private void printTitleInfo() {
+        System.out.printf("%-5s%-20s%-10s%-15s%-20s%-25s%-15s%-15s\n",
+                "ID", "Họ tên", "Tuổi", "Giới tính", "Địa chỉ", "email",
+                "SĐT", "Chuyên ngành");
     }
 
     private void saveStudent(Person student) {
@@ -122,6 +128,32 @@ public class StudentManager implements IManager<Student> {
         return null;
     }
 
+    public void findStudent(String type) {
+        System.out.println("\nNhập một trong các thuộc tính để tìm sinh viên: VD: id:?, name:?, age: ?, gender: ?, email: ?, phone:?");
+        String contextString = CheckValid.checkString(scanner);
+        int dem = 0;
+        for (int i = 0; i< studentFileManager.getData().size(); i++) {
+            Expression expression = null;
+            if(Objects.equals(type, "OR")){
+                expression = ExpressionParser.parseOrExpression(contextString);
+            }else if(Objects.equals(type, "AND")){
+                expression = ExpressionParser.parseAndExpression(contextString);
+            }
+            if(expression == null){
+                return;
+            }
+            boolean isFinded = expression.interpreter(studentFileManager.getData().get(i));
+            if(isFinded){
+                dem++;
+                printTitleInfo();
+                showOne((Student) studentFileManager.getData().get(i));
+            }
+        }
+        if (dem==0) {
+            System.out.println("Không tìm thấy sinh viên nào!");
+        }
+    }
+
     public void menu() {
         System.out.println("\n------Quản lý sinh viên------");
         System.out.println("-------------Menu------------");
@@ -130,6 +162,8 @@ public class StudentManager implements IManager<Student> {
         System.out.println("3. Clone sinh viên.");
         System.out.println("4. Xóa sinh viên.");
         System.out.println("5. Chỉnh sửa thông tin 1 sinh viên.");
+        System.out.println("6. Tìm kiếm chính xác 1 sinh viên.");
+        System.out.println("7. Tìm kiếm sinh viên tương đương.");
         System.out.println("0. exit.");
         System.out.println("---------------------------");
         System.out.print("Please choose: ");
