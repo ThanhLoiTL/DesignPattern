@@ -14,6 +14,10 @@ public class ExpressionParser {
         for (int index = 0; index < keyValues.length; index++) {
             String keyValue = keyValues[index];
             String[] words = keyValue.trim().split(":");
+            if(words.length < 2) {
+                System.out.println("=> Có thuộc tính không khớp! <=");
+                return null;
+            }
             Expression anotherExpression = getExpression(words[0].trim(), words[1].trim());
             if(anotherExpression==null) {
                 System.out.println("=> Có thuộc tính không khớp! <=");
@@ -34,6 +38,10 @@ public class ExpressionParser {
         for (int index = 0; index < keyValues.length; index++) {
             String keyValue = keyValues[index];
             String[] words = keyValue.trim().split(":");
+            if(words.length < 2) {
+                System.out.println("=> Có thuộc tính không khớp! <=");
+                return null;
+            }
             Expression anotherExpression = getExpression(words[0].trim(), words[1].trim());
             if(anotherExpression==null) {
                 System.out.println("=> Có thuộc tính không khớp! <=");

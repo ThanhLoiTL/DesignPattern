@@ -129,7 +129,8 @@ public class StudentManager implements IManager<Student> {
     }
 
     public void searchStudent(String type) {
-        System.out.println("\nNhập một trong các thuộc tính để tìm sinh viên: VD: id:?, name:?, age: ?, gender: ?, email: ?, phone:?");
+        System.out.println("\nNhập một trong các thuộc tính để tìm sinh viên: id, name, age, gender, email, phone\n" +
+                "VD: id:S1, name:Huy, age: 20");
         String contextString = CheckValid.checkString(scanner);
         int dem = 0;
         for (int i = 0; i< studentFileManager.getData().size(); i++) {
