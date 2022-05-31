@@ -6,17 +6,17 @@ import java.util.Collection;
 import java.util.List;
 
 public class PersonContainer implements IContainer {
-    Collection<Person> integerCollection;
+    Collection<Person> collection;
     @Override
     public IIterator createIterator(Collection collection) {
-        this.integerCollection = collection;
+        this.collection = collection;
         IIterator<Person> result = new PersonIterator();
         return result;
     }
 
 
     private class PersonIterator implements IIterator<Person> {
-        private List<Person> personList = integerCollection.stream().toList();
+        private List<Person> personList = collection.stream().toList();
         private int index = 0;
         @Override
         public boolean hasNext() {

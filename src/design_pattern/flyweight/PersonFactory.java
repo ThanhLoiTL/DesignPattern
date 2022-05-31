@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class PersonFactory {
     private static final HashMap<PersonType, Person> persons = new HashMap<>();
+
     public static Person createPerson(PersonType personType) {
         Person person = null;
         if(persons.containsKey(personType)){

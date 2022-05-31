@@ -133,6 +133,7 @@ public class StudentManager implements IManager<Student> {
                 "VD: id:S1, name:Huy, age: 20");
         String contextString = CheckValid.checkString(scanner);
         int dem = 0;
+        printTitleInfo();
         for (int i = 0; i< studentFileManager.getData().size(); i++) {
             Expression expression = null;
             if(Objects.equals(type, "OR")){
@@ -146,7 +147,6 @@ public class StudentManager implements IManager<Student> {
             boolean isFinded = expression.interpreter(studentFileManager.getData().get(i));
             if(isFinded){
                 dem++;
-                printTitleInfo();
                 showOne((Student) studentFileManager.getData().get(i));
             }
         }

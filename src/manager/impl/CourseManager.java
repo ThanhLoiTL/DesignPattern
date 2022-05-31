@@ -54,6 +54,7 @@ public class CourseManager implements ICourseManager {
             System.out.println("Mã lớp không tồn tại!");
             return;
         }
+
         System.out.print("Nhập mã sinh viên: ");
         String studentId = scanner.nextLine();
         //Student student = studentManager.findById(studentId);
